@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Blood Donor Network connects blood donors with people in need.">
+    <title>Smart Blood Donor Network</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="#home" class="logo">🩸 Smart<span>Donor</span></a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#find-donor">Find Donors</a>
+            <a href="#register-donor">Become a Donor</a>
+            <a href="#request-blood">Request Blood</a>
+            <a href="#emergency">Emergency</a>
+            <a href="#signup" onclick="showSection('signup')" style="font-weight: 700; color: var(--red);">Sign Up</a>
+            <a href="#login" onclick="showSection('login')">Login</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <div class="auth-buttons">
+            <button type="button" id="loginBtn" onclick="showSection('login')">Login</button>
+            <button type="button" id="signupBtn" onclick="showSection('signup')">Sign Up</button>
+            <button type="button" id="notifBtn" class="hidden" onclick="showSection('notifications')">
+                🔔 Notifications <span id="notifBadge" class="status ok hidden">0</span>
+            </button>
+            <button type="button" onclick="showSection('profile')">My Profile</button>
+            <button type="button" id="adminBtn" class="hidden" onclick="showSection('admin')">Admin</button>
+            <button type="button" id="logoutButton" class="hidden">Logout</button>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Home -->
+        <section id="home" class="page hero">
+            <p class="tagline">BE A HERO • DONATE BLOOD</p>
+            <h1>Donate Blood,<br>Save a Life ❤️</h1>
+            <p>Find blood donors, register as a donor and help people get connected when they need blood.</p>
+
+            <div class="hero-buttons">
+                <button type="button" onclick="showSection('signup')">Sign Up (New User)</button>
+                <button type="button" onclick="showSection('register-donor')">Become a Donor</button>
+                <button type="button" onclick="showSection('find-donor')">Find Blood Donors</button>
+                <button type="button" onclick="showSection('request-blood')">Request Blood</button>
+            </div>
+
+            <div class="stats">
+                <div><h2>8</h2><p>Blood Groups</p></div>
+                <div><h2>24/7</h2><p>Search Access</p></div>
+                <div><h2>1 Goal</h2><p>Save Lives</p></div>
+            </div>
+        </section>
+
+        <!-- Login -->
+        <section id="login" class="page card hidden">
+            <h2>Welcome Back!</h2>
+            <p>Login to your Smart Donor account.</p>
+
+            <form id="loginForm">
+                <label for="loginEmail">Email Address</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <p style="margin-top: 14px;">Don't have an account?
+                <a href="#signup" onclick="showSection('signup')">Create Account</a>
+            </p>
+            <button type="button" class="secondary" onclick="showSection('home')">Back to Home</button>
+        </section>
+
+        <!-- Sign Up -->
+        <section id="signup" class="page card hidden">
+            <h2>Create Your Account</h2>
+            <p>Join our network and help save lives.</p>
+
+            <form id="signupForm">
+                <label for="signupName">Full Name</label>
+                <input type="text" id="signupName" placeholder="Enter your full name" required>
+
+                <label for="signupEmail">Email Address</label>
+                <input type="email" id="signupEmail" placeholder="Enter your email" required>
+
+                <label for="signupPassword">Create Password</label>
+                <input type="password" id="signupPassword" placeholder="At least 8 characters" minlength="8" required>
+
+                <label for="signupRole">Account Type</label>
+                <select id="signupRole" required>
+                    <option value="">Select account type</option>
+                    <option value="donor">Blood Donor</option>
+                    <option value="recipient">Blood Seeker (Patient)</option>
+                </select>
+
+                <button type="submit">Send Verification Code</button>
+            </form>
+
+            <p style="margin-top: 14px;">Already registered?
+                <a href="#login" onclick="showSection('login')">Login</a>
+            </p>
+        </section>
+
+        <!-- Verify OTP -->
+        <section id="verify-otp" class="page card hidden">
+            <h2>Verify Your Email</h2>
+            <p>Enter the 6-digit verification code sent to <strong id="otpEmailLabel">your email</strong>.</p>
+
+            <form id="otpForm">
+                <label for="otpCode">Verification Code</label>
+                <input type="text" id="otpCode" placeholder="Enter 6-digit code" maxlength="6" pattern="[0-9]{6}" required>
+
+                <button type="submit">Verify &amp; Create Account</button>
+            </form>
+
+            <button type="button" id="resendOtpBtn" class="secondary" style="margin-top: 12px;">Resend OTP</button>
+        </section>
+
+        <!-- Donor Registration -->
+        <section id="register-donor" class="page card hidden">
+            <h2>Donor Registration 🩸</h2>
+            <p>Register your details to join the donor network. Log in first so requests can reach you.</p>
+
+            <form id="donorForm">
+                <label for="donorName">Full Name</label>
+                <input type="text" id="donorName" placeholder="Enter full name" required>
+
+                <label for="donorAge">Age</label>
+                <input type="number" id="donorAge" min="18" max="65" placeholder="Enter age" required>
+
+                <label for="bloodGroup">Blood Group</label>
+                <select id="bloodGroup" required>
+                    <option value="">Select blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+
+                <label for="donorCity">City</label>
+                <input type="text" id="donorCity" placeholder="Enter your city" required>
+
+                <label for="donorPhone">Contact Number</label>
+                <input type="tel" id="donorPhone" placeholder="Enter 10-digit phone number" pattern="[0-9]{10}" required>
+
+                <label for="lastDonation">Last Donation Date (optional)</label>
+                <input type="date" id="lastDonation">
+
+                <label class="check-label">
+                    <input type="checkbox" id="donorConsent" required>
+                    I agree to share my details with authorized users for blood donation coordination.
+                </label>
+
+                <button type="submit">Register as Donor</button>
+            </form>
+        </section>
+
+        <!-- Find Donors -->
+        <section id="find-donor" class="page card hidden">
+            <h2>Find a Blood Donor</h2>
+            <p>Search registered donors by blood group and city.</p>
+
+            <form id="searchForm">
+                <label for="searchBloodGroup">Blood Group</label>
+                <select id="searchBloodGroup">
+                    <option value="">All Blood Groups</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+
+                <label for="searchCity">City</label>
+                <input type="text" id="searchCity" placeholder="Enter city name">
+
+                <button type="submit">Search Donors</button>
+            </form>
+
+            <div id="searchResults" aria-live="polite">
+                <p>Search results will appear here.</p>
+            </div>
+        </section>
+
+        <!-- Request Blood -->
+        <section id="request-blood" class="page card hidden">
+            <h2>Request Blood 🆘</h2>
+            <p>Submit a request. Compatible, available donors in your city will be notified.</p>
+
+            <form id="requestForm">
+                <label for="reqPatient">Patient Name</label>
+                <input type="text" id="reqPatient" placeholder="Enter patient name" required>
+
+                <label for="reqGroup">Blood Group Needed</label>
+                <select id="reqGroup" required>
+                    <option value="">Select blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+
+                <label for="reqUnits">Units Required</label>
+                <input type="number" id="reqUnits" min="1" max="10" value="1" required>
+
+                <label for="reqHospital">Hospital Name</label>
+                <input type="text" id="reqHospital" placeholder="Enter hospital name" required>
+
+                <label for="reqCity">City</label>
+                <input type="text" id="reqCity" placeholder="Enter city" required>
+
+                <label for="reqPhone">Contact Number</label>
+                <input type="tel" id="reqPhone" placeholder="Enter 10-digit phone number" pattern="[0-9]{10}" required>
+
+                <label for="reqDate">Required By</label>
+                <input type="date" id="reqDate" required>
+
+                <label for="reqUrgency">Urgency</label>
+                <select id="reqUrgency">
+                    <option value="Normal">Normal</option>
+                    <option value="Urgent">Urgent</option>
+                </select>
+
+                <button type="submit">Send Request</button>
+            </form>
+
+            <button type="button" class="secondary" onclick="showSection('my-requests')">View My Requests</button>
+        </section>
+
+        <!-- My Requests -->
+        <section id="my-requests" class="page card hidden">
+            <h2>My Blood Requests</h2>
+            <p>Track the status of your requests and see which donors accepted.</p>
+            <div id="myRequests"><p>No requests yet.</p></div>
+        </section>
+
+        <!-- Notifications -->
+        <section id="notifications" class="page card hidden">
+            <h2>Donation Requests 🔔</h2>
+            <p>Patients who need your blood group in your city. Accept or decline each request.</p>
+            <div id="notificationList"><p>No notifications.</p></div>
+        </section>
+
+        <!-- Emergency -->
+        <section id="emergency" class="page card hidden">
+            <h2>🚨 Emergency Blood Needed</h2>
+            <p>Sends an emergency request to all matching donors right away and shows who is available.</p>
+
+            <form id="emergencyForm">
+                <label for="emGroup">Blood Group</label>
+                <select id="emGroup" required>
+                    <option value="">Select blood group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+
+                <label for="emCity">City</label>
+                <input type="text" id="emCity" placeholder="Enter city" required>
+
+                <label for="emHospital">Hospital</label>
+                <input type="text" id="emHospital" placeholder="Hospital name" required>
+
+                <label for="emPhone">Your Contact Number</label>
+                <input type="tel" id="emPhone" placeholder="10-digit phone number" pattern="[0-9]{10}" required>
+
+                <button type="submit" style="background: var(--red-dark);">Send Emergency Alert</button>
+            </form>
+
+            <div id="emergencyResults" aria-live="polite"></div>
+
+            <h3 style="margin-top:20px;">Helpline Numbers (India)</h3>
+            <ul>
+                <li><strong>112</strong> - National Emergency Number</li>
+                <li><strong>102</strong> - Ambulance (Government Service)</li>
+                <li><strong>108</strong> - Emergency Ambulance</li>
+            </ul>
+        </section>
+
+        <!-- Admin Dashboard -->
+        <section id="admin" class="page card hidden">
+            <h2>Admin Dashboard 🛠️</h2>
+            <p>Overview of users, donors and blood requests.</p>
+            <div id="adminContent"></div>
+        </section>
+
+        <!-- Profile -->
+        <section id="profile" class="page card hidden">
+            <h2>My Profile 👤</h2>
+            <p>View your account information here.</p>
+            <div id="profileDetails">
+                <p>Please log in to view your profile.</p>
+            </div>
+            <button type="button" onclick="showSection('login')">Login to Continue</button>
+            <button type="button" class="secondary" onclick="showSection('register-donor')">Complete Donor Registration</button>
+            <button type="button" class="secondary hidden" id="logoutButton">Logout</button>
+        </section>
+
+        <!-- Donation History -->
+        <section id="history" class="page card hidden">
+            <h2>Donation History</h2>
+            <p>Your recorded donations will appear here.</p>
+            <div id="donationHistory"><p>No donation history available yet.</p></div>
+        </section>
+
+        <!-- About -->
+        <section id="about" class="page card hidden">
+            <h2>About Our Project</h2>
+            <p>Smart Blood Donor Network connects voluntary blood donors with patients in urgent need.</p>
+            <p>Features include automated matching, real-time requests, donor notification inbox, and OTP verified accounts.</p>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="page card hidden">
+            <h2>Help &amp; Contact</h2>
+            <p>For support and queries, contact the system administrator.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>🩸 Smart Blood Donor Network • Saving Lives Together</p>
+        <p>© 2026 Smart Blood Donor Network</p>
+        <a href="#contact" onclick="showSection('contact')">Help &amp; Contact</a>
+    </footer>
+
+    <!-- Toast Notification Element -->
+    <div id="toast" role="status"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
