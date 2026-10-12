@@ -30,8 +30,8 @@ const COMPATIBLE = {
 
 /* ---------- Bootstrap First Admin ---------- */
 (function bootstrapAdmin() {
-    const email = ((process.env.ADMIN_EMAIL || "girikrishnanand63@gmail.com") || "").trim().toLowerCase();
-    const pass = (process.env.ADMIN_PASSWORD || "Admin@123456");
+    const email = (((process.env.ADMIN_EMAIL || "girikrishnanand63@gmail.com") || "girikrishnanand63@gmail.com") || "").trim().toLowerCase();
+    const pass = ((process.env.ADMIN_PASSWORD || "Admin@123456") || "Admin@123456");
     if (!email || !pass) return;
     if (db.prepare("SELECT 1 FROM users WHERE role='admin'").get()) return;
     db.prepare("INSERT INTO users(name,email,password_hash,role) VALUES(?,?,?,'admin')")
@@ -495,3 +495,8 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log("Server running on http://localhost:" + PORT));
+
+// Google Search Console Verification
+app.get('/google692d880d16198008.html', (req, res) => {
+    res.send('google-site-verification: google692d880d16198008.html');
+});
